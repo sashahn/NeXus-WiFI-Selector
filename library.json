@@ -1,0 +1,21 @@
+{
+  "name": "NexusWiFiSelector",
+  "keywords": "Wifi, manager, selector, ESP8266, ESP32, littlefs, spiffs",
+  "description": "NexusWiFiSelector simple for everyone!",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/sashahn/NexusWiFiSelector/"
+  },
+  "authors":
+  [
+    {
+      "name": "Sasha Djordjevic",
+      "email": "sashahn@gmail.com",
+      "maintainer": true
+    }
+  ],
+  "version": "0.0.1",
+  "frameworks": "arduino",
+  "platforms": ["espressif", "raspberrypi"]
+}
