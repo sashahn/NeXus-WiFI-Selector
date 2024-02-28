@@ -2,13 +2,13 @@
 
 <br/>
 <p align="center">
-<p align="center"><img src="/docs/IMG_1.jpg?sanitize=true&raw=true" width="100"></p>
+<p ><img src="https://github.com/sashahn/NeXus-WiFI-Selector/docs/IMG_1.jpg?sanitize=true&raw=true" width="100"></p>
 &nbsp;
-<p align="center"><img src="/docs/IMG_2.jpg?sanitize=true&raw=true" width="100"></p>
+<p ><img src="/docs/IMG_2.jpg?sanitize=true&raw=true" width="100"></p>
 &nbsp;
-<p align="center"><img src="/docs/IMG_3.jpg?sanitize=true&raw=true" width="100"></p>
+<p><img src="/docs/IMG_3.jpg?sanitize=true&raw=true" width="100"></p>
 &nbsp;
-<p align="center"><img src="/docs/IMG_4.jpg?sanitize=true&raw=true" width="100"></p>
+<p><img src="/docs/IMG_4.jpg?sanitize=true&raw=true" width="100"></p>
 </p>
 <br/>
 
