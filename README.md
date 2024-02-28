@@ -2,7 +2,7 @@
 
 <br/>
 <p align="center">
-<p ><img src="https://github.com/sashahn/NeXus-WiFI-Selector/docs/IMG_1.jpg?sanitize=true&raw=true" width="100"></p>
+<p ><img src="https://github.com/sashahn/NeXus-WiFI-Selector/docs/IMG_1.jpg" width="100"></p>
 &nbsp;
 <p ><img src="/docs/IMG_2.jpg?sanitize=true&raw=true" width="100"></p>
 &nbsp;
@@ -17,7 +17,6 @@
 <p align="center">
 	NeXusWiFiSelector is evulation of <a href="https://randomnerdtutorials.com/esp32-wi-fi-manager-asyncwebserver/">ESP32: Create a Wi-Fi Manager (AsyncWebServer library) made by Rui Santos.</a>
 </p>
-<
 
 <br/>
 <br/>
