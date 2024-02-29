@@ -28,15 +28,17 @@
 ```
 
 ``` C++
-	#include <NexusWiFiSelector.h>  // Add lib
-			
-	NexusWiFiSelector neXus;	// Create Object
-			
+	#include "NexusWiFiSelector.h"
+
+	#define DEBUGG true
+	cons int pinToControl = 7;
+	
+	NexusWiFiSelector ws;
+	
 	void setup() {
-		Serial.begin(115200);  
-		delay(10);
-		neXus.begin();		// Init it		
-		pinMode(LED_BUILTIN, OUTPUT); // for visual debugging
+	  Serial.begin(115200);
+	  delay(100);
+	  ws.begin(LED_BUILTIN, pinToControl, DEBUGG);  //.begin(pin for visual debug, on/off pin, Serial debug);
 	}
 			
 	void loop() {
