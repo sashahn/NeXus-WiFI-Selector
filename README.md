@@ -10,7 +10,7 @@
 &nbsp;
 <img src="/docs/IMG_4.jpeg" width="100">
 &nbsp;
-<img src="/docs/IMG_5.jpeg" width="100">
+<img src="/docs/IMG_36.jpeg" width="100">
 </p>
 <br/>
 
