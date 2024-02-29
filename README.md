@@ -1,5 +1,6 @@
 <p><br/></p>
-
+<p align="center">WiFi selector/manager lightwait library for wireless microcontrollers</p>
+</br>
 <br/>
 <p align="center">
 <img src="/docs/IMG_1.jpeg" width="100">
@@ -13,30 +14,38 @@
 <img src="/docs/IMG_36.jpeg" width="100">
 </p>
 <br/>
-<p align="center">WiFi selector/manager library for wireless microcontrollers</p>
-</br>
-<p>USAGE: Install library to Arduino library folder. Open IDE and add.. </p>
-<p align="center">
-	<code>
-		
-#include <NexusWiFiSelector.h>  // Add lib
 
-NexusWiFiSelector neXus;	// Create Object
+<p>USAGE:</br>	
+<code>
+ 
+	STEP 1:
+	1.1 Open file: ESP_SPIFFS_FILE-UPLOADER-HELPER.ino.
+	1.2 Edit HTML templates |indexHTML |landing |scan | wifimanager | style | to acommodate your needs 
+	1.3 Uplad it to the chip and run it once. HTML files will be stored in SPIFFS
+	STEP 2:
+	2.1 From example menu open: NeXusWiFiSelector.ino.
+	Happy coding
+</code> 
+<code> 
 
-void setup() {
-  Serial.begin(115200);  
-  delay(10);
-  neXus.begin();		// Init it		
-  pinMode(LED_BUILTIN, OUTPUT); // for visual debugging
-}
-
-void loop() {
-
-  // do your stuff...
-
-}
-
-	</code>
+	#include <NexusWiFiSelector.h>  // Add lib
+			
+	NexusWiFiSelector neXus;	// Create Object
+			
+	void setup() {
+		Serial.begin(115200);  
+		delay(10);
+		neXus.begin();		// Init it		
+		pinMode(LED_BUILTIN, OUTPUT); // for visual debugging
+	}
+			
+	void loop() {
+			
+		// do your stuff...
+			
+	} 	
+	
+</code>
 </p>
 
 <br/>
