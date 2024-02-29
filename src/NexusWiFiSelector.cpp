@@ -9,7 +9,7 @@
 *                                                                                                   const char landing[] PROGMEM 
 *                                                                                                   const char wifimanager[] PROGMEM
 *                                                                                                   const char style[] PROGMEM )
-* 
+* GPIO 7 is LED_BUILTIN
 */
 NexusWiFiSelector::NexusWiFiSelector()
   : server(80) {}
