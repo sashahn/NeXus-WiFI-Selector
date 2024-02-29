@@ -2,7 +2,7 @@
 
 <br/>
 <p align="center">
-<p ><img src="/tree/main/docs/IMG_1.jpg" width="100"></p>
+<p ><img src="docs/IMG_1.jpg" width="100"></p>
 &nbsp;
 <p ><img src="/tree/main/docsIMG_2.jpg?sanitize=true&raw=true" width="100"></p>
 &nbsp;
