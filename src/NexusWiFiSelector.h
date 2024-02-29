@@ -21,8 +21,10 @@ private:
   const char* passPath = "/pass.txt";
   const char* ipPath = "/ip.txt";
   const char* gatewayPath = "/gateway.txt";
-  const long interval = 10000;
-  const int ledPin = LED_BUILTIN;
+  const long interval = 1000;
+  int _ledPin;
+  int _pinToControl;
+  bool _debug;
   String ledState;
   String ssid;
   String pass;
@@ -34,7 +36,7 @@ private:
 public:
   NexusWiFiSelector();
 
-  void begin();
+  void begin(const int led_pin, const int pinToControl, const bool debug);
 
 private:
   void initSPIFFS();
