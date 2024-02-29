@@ -122,7 +122,7 @@ bool NexusWiFiSelector::initWiFi() {
   }
 
   WiFi.mode(WIFI_STA);
-  WiFi.setTxPower(WIFI_POWER_7dBm);
+  /*WiFi.setTxPower(WIFI_POWER_7dBm); // NeXus Hera has amazing results with minimal tx power too...*/
 
   localIP.fromString(ip.c_str());
   localGateway.fromString(gateway.c_str());
@@ -231,7 +231,7 @@ void NexusWiFiSelector::setupAPServer() {
  if(_debug)Serial.println("Setting AP (Access Point)");
   // NULL sets an open Access Point
   WiFi.softAP("NeXus-WiFi", NULL);
-  WiFi.setTxPower(WIFI_POWER_7dBm);
+ /*WiFi.setTxPower(WIFI_POWER_7dBm); // NeXus Hera has amazing results with minimal tx power too...*/
 
   IPAddress IP = WiFi.softAPIP();
  if(_debug)Serial.print("AP IP address: ");
@@ -281,11 +281,6 @@ void NexusWiFiSelector::handleRequest(AsyncWebServerRequest* request) {
     }
   }
   handleRequestSuccess(request);
-
-
-
-  // delay(5000);
-  // ESP.restart(); //ne radi!!!! prekine request i pobrlja spiffs fajlove
 }
 
 /* 
