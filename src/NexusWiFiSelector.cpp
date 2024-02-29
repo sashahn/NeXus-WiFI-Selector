@@ -9,7 +9,7 @@
 *                                                                                                   const char landing[] PROGMEM 
 *                                                                                                   const char wifimanager[] PROGMEM
 *                                                                                                   const char style[] PROGMEM )
-* GPIO 7 is LED_BUILTIN
+* 
 */
 NexusWiFiSelector::NexusWiFiSelector()
   : server(80) {}
@@ -20,27 +20,31 @@ NexusWiFiSelector::NexusWiFiSelector()
 *           |Serial (ako vec nije .begin()) | SPIFFS init.. | popunjav promjenjlive sa podacima iz SPIFFS fajlova |
 * Tip:      Public
 */
-void NexusWiFiSelector::begin() {
+void NexusWiFiSelector::begin(int led_pin, int pinToControl, bool debug=false) {
+  _ledPin = led_pin;
+  _pinToControl = pinToControl;
+  _debug = debug;
   // Serial port for debugging purposes
   if (!Serial) {
-    Serial.begin(115200);
+   if(_debug)Serial.begin(115200);
     delay(100);
-    Serial.println("Init Serial comm...");
+   if(_debug)Serial.println("Init Serial comm...");
   } else {
-    Serial.println("Serial comm started...");
+   if(_debug)Serial.println("Serial comm started...");
   }
   server.serveStatic("/", SPIFFS, "/");
   initSPIFFS();
-  pinMode(ledPin, OUTPUT);
-  digitalWrite(ledPin, LOW);
+  pinMode(_ledPin, OUTPUT);
+  pinMode(_pinToControl, OUTPUT);
+  digitalWrite(_ledPin, LOW);
   ssid = readFile(SPIFFS, ssidPath);
   pass = readFile(SPIFFS, passPath);
   ip = readFile(SPIFFS, ipPath);
   gateway = readFile(SPIFFS, gatewayPath);
-  Serial.println(ssid);
-  Serial.println(pass);
-  Serial.println(ip);
-  Serial.println(gateway);
+ if(_debug)Serial.println(ssid);
+ if(_debug)Serial.println(pass);
+ if(_debug)Serial.println(ip);
+ if(_debug)Serial.println(gateway);
 
   if (initWiFi()) {
     setupWiFiServer();
@@ -56,9 +60,9 @@ void NexusWiFiSelector::begin() {
 */
 void NexusWiFiSelector::initSPIFFS() {
   if (!SPIFFS.begin(true)) {
-    Serial.println("An error has occurred while mounting SPIFFS");
+   if(_debug)Serial.println("An error has occurred while mounting SPIFFS");
   }
-  Serial.println("SPIFFS mounted successfully");
+ if(_debug)Serial.println("SPIFFS mounted successfully");
 }
 
 /* 
@@ -67,11 +71,11 @@ void NexusWiFiSelector::initSPIFFS() {
 * Tip:      Private
 */
 String NexusWiFiSelector::readFile(fs::FS& fs, const char* path) {
-  Serial.printf("Reading file: %s\r\n", path);
+ if(_debug)Serial.printf("Reading file: %s\r\n", path);
 
   File file = fs.open(path);
   if (!file || file.isDirectory()) {
-    Serial.println("- failed to open file for reading");
+   if(_debug)Serial.println("- failed to open file for reading");
     return String();
   }
 
@@ -80,7 +84,7 @@ String NexusWiFiSelector::readFile(fs::FS& fs, const char* path) {
     fileContent = file.readStringUntil('\n');
     break;
   }
-  Serial.println(fileContent);
+ if(_debug)Serial.println(fileContent);
 
   return fileContent;
 }
@@ -91,17 +95,17 @@ String NexusWiFiSelector::readFile(fs::FS& fs, const char* path) {
 * Tip:      Private
 */
 void NexusWiFiSelector::writeFile(fs::FS& fs, const char* path, const char* message) {
-  Serial.printf("Writing file: %s\r\n", path);
+ if(_debug)Serial.printf("Writing file: %s\r\n", path);
 
   File file = fs.open(path, FILE_WRITE);
   if (!file) {
-    Serial.println("- failed to open file for writing");
+   if(_debug)Serial.println("- failed to open file for writing");
     return;
   }
   if (file.print(message)) {
-    Serial.println("- file written");
+   if(_debug)Serial.println("- file written");
   } else {
-    Serial.println("- write failed");
+   if(_debug)Serial.println("- write failed");
   }
 }
 
@@ -113,18 +117,18 @@ void NexusWiFiSelector::writeFile(fs::FS& fs, const char* path, const char* mess
 */
 bool NexusWiFiSelector::initWiFi() {
   if (ssid == "" || ip == "") {
-    Serial.println("Undefined SSID or IP address.");
+   if(_debug)Serial.println("Undefined SSID or IP address.");
     return false;
   }
 
   WiFi.mode(WIFI_STA);
-  //WiFi.setTxPower(WIFI_POWER_7dBm); 
+  WiFi.setTxPower(WIFI_POWER_7dBm);
 
   localIP.fromString(ip.c_str());
   localGateway.fromString(gateway.c_str());
 
   if (!WiFi.config(localIP, localGateway, IPAddress(255, 255, 0, 0))) {
-    Serial.println("STA Failed to configure");
+   if(_debug)Serial.println("STA Failed to configure");
     return false;
   }
   WiFi.begin(ssid.c_str(), pass.c_str());
@@ -135,12 +139,12 @@ bool NexusWiFiSelector::initWiFi() {
 
 
   while (WiFi.status() != WL_CONNECTED) {
-    digitalWrite(ledPin, HIGH);  // Connecting turn ON Led...
+    digitalWrite(_ledPin, HIGH);  // Connecting turn ON Led...
     currentMillis = millis();
     if (currentMillis - previousMillis >= interval) {
       // if (WiFi.status() == 1 || WiFi.status() == 6) {
       //   //WiFi.disconnect();
-      //   Serial.println("NO AP found, correcting files...");
+      //  if(_debug)Serial.println("NO AP found, correcting files...");
       //   writeFile(SPIFFS, ssidPath, "\n");
       //   writeFile(SPIFFS, passPath, "\n");
       //   writeFile(SPIFFS, ipPath, "\n");
@@ -148,12 +152,12 @@ bool NexusWiFiSelector::initWiFi() {
       //   delay(3000);
       //   ESP.restart();
       // }
-      Serial.println("Failed to connect.");
+     if(_debug)Serial.println("Failed to connect.");
       return false;
     }
   }
-  Serial.println(WiFi.localIP());
-  digitalWrite(ledPin, LOW);  // Connected turn Off Led...
+ if(_debug)Serial.println(WiFi.localIP());
+  digitalWrite(_ledPin, LOW);  // Connected turn Off Led...
   return true;
 }
 
@@ -164,7 +168,7 @@ bool NexusWiFiSelector::initWiFi() {
 */
 String NexusWiFiSelector::processor(const String& var) {
   if (var == "STATE") {
-    if (digitalRead(ledPin)) {
+    if (digitalRead(_ledPin)) {
       ledState = "ON";
     } else {
       ledState = "OFF";
@@ -201,12 +205,12 @@ void NexusWiFiSelector::setupWiFiServer() {
   });
 
   server.on("/on", HTTP_GET, [&](AsyncWebServerRequest* request) {
-    digitalWrite(ledPin, HIGH);
+    digitalWrite(_pinToControl, HIGH);
     request->send(SPIFFS, "/index.html", "text/html", false, std::bind(&NexusWiFiSelector::processor, this, std::placeholders::_1));
   });
 
   server.on("/off", HTTP_GET, [&](AsyncWebServerRequest* request) {
-    digitalWrite(ledPin, LOW);
+    digitalWrite(_pinToControl, LOW);
     request->send(SPIFFS, "/index.html", "text/html", false, std::bind(&NexusWiFiSelector::processor, this, std::placeholders::_1));
   });
 
@@ -224,14 +228,14 @@ void NexusWiFiSelector::setupAPServer() {
 
   server.end();
 
-  Serial.println("Setting AP (Access Point)");
+ if(_debug)Serial.println("Setting AP (Access Point)");
   // NULL sets an open Access Point
   WiFi.softAP("NeXus-WiFi", NULL);
-  //WiFi.setTxPower(WIFI_POWER_7dBm); // For signal strenght tests. NeXus Hera has amazing results at minimal tx power
+  WiFi.setTxPower(WIFI_POWER_7dBm);
 
   IPAddress IP = WiFi.softAPIP();
-  Serial.print("AP IP address: ");
-  Serial.println(IP);
+ if(_debug)Serial.print("AP IP address: ");
+ if(_debug)Serial.println(IP);
 
   server.on("/", HTTP_GET, [&](AsyncWebServerRequest* request) {
     request->send(SPIFFS, "/landing.html", "text/html");
@@ -255,23 +259,23 @@ void NexusWiFiSelector::handleRequest(AsyncWebServerRequest* request) {
     if (p->isPost()) {
       if (p->name() == PARAM_INPUT_1) {
         ssid = p->value().c_str();
-        Serial.print("SSID set to: ");
-        Serial.println(ssid);
+       if(_debug)Serial.print("SSID set to: ");
+       if(_debug)Serial.println(ssid);
         writeFile(SPIFFS, ssidPath, ssid.c_str());
       } else if (p->name() == PARAM_INPUT_2) {
         pass = p->value().c_str();
-        Serial.print("Password set to: ");
-        Serial.println(pass);
+       if(_debug)Serial.print("Password set to: ");
+       if(_debug)Serial.println(pass);
         writeFile(SPIFFS, passPath, pass.c_str());
       } else if (p->name() == PARAM_INPUT_3) {
         ip = p->value().c_str();
-        Serial.print("IP Address set to: ");
-        Serial.println(ip);
+       if(_debug)Serial.print("IP Address set to: ");
+       if(_debug)Serial.println(ip);
         writeFile(SPIFFS, ipPath, ip.c_str());
       } else if (p->name() == PARAM_INPUT_4) {
         gateway = p->value().c_str();
-        Serial.print("Gateway set to: ");
-        Serial.println(gateway);
+       if(_debug)Serial.print("Gateway set to: ");
+       if(_debug)Serial.println(gateway);
         writeFile(SPIFFS, gatewayPath, gateway.c_str());
       }
     }
@@ -292,7 +296,7 @@ void NexusWiFiSelector::handleRequest(AsyncWebServerRequest* request) {
 * Tip:      Private
 */
 void NexusWiFiSelector::handleRequestWiFiManager(AsyncWebServerRequest* request) {
-  digitalWrite(LED_BUILTIN, HIGH);
+  digitalWrite(_ledPin, HIGH);
   int numNetworks = WiFi.scanNetworks();
 
   String networksHTML = "<option hidden value=\"\">Networks</option>";
@@ -316,7 +320,7 @@ void NexusWiFiSelector::handleRequestWiFiManager(AsyncWebServerRequest* request)
     request->send(404);
   }
 
-  digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(_ledPin, LOW);
 }
 
 /* 
@@ -325,7 +329,7 @@ void NexusWiFiSelector::handleRequestWiFiManager(AsyncWebServerRequest* request)
 * Tip:      Private
 */
 void NexusWiFiSelector::handleRequestSuccess(AsyncWebServerRequest* request) {
-  digitalWrite(LED_BUILTIN, HIGH);
+  digitalWrite(_ledPin, HIGH);
 
   File file = SPIFFS.open("/success.html", "r");
   if (file) {
@@ -336,10 +340,10 @@ void NexusWiFiSelector::handleRequestSuccess(AsyncWebServerRequest* request) {
     htmlContent.replace(IPPH, ipPH);
     request->send(200, "text/html", htmlContent);
     file.close();
-    Serial.println("OK from requstSuccess...");
+   if(_debug)Serial.println("OK from requstSuccess...");
   } else {
-    Serial.println("ERROR from requstSuccess...");
+   if(_debug)Serial.println("ERROR from requstSuccess...");
     request->send(404);
   }
-  digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(_ledPin, LOW);
 }
