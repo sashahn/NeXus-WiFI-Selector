@@ -66,7 +66,7 @@ NeXusWiFiSelector works on the following microcontrollers/boards:
 
 <br/>
 <br/>
-<p align="center">
+<p>
 	NeXusWiFiSelector is evulation of <a href="https://randomnerdtutorials.com/esp32-wi-fi-manager-asyncwebserver/">a Wi-Fi Manager (AsyncWebServer library)</a>
 </p>
 "# NeXus-WiFI-Selector" 
