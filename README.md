@@ -13,11 +13,30 @@
 <img src="/docs/IMG_36.jpeg" width="100">
 </p>
 <br/>
-
-
 <p align="center">WiFi selector/manager library for wireless microcontrollers</p>
+</br>
+<p>USAGE: Install library to Arduino library folder. Open IDE and add.. </p>
 <p align="center">
-	NeXusWiFiSelector is evulation of <a href="https://randomnerdtutorials.com/esp32-wi-fi-manager-asyncwebserver/">ESP32: Create a Wi-Fi Manager (AsyncWebServer library) made by Rui Santos.</a>
+	<code>
+		
+#include <NexusWiFiSelector.h>  // Add lib
+
+NexusWiFiSelector neXus;	// Create Object
+
+void setup() {
+  Serial.begin(115200);  
+  delay(10);
+  neXus.begin();		// Init it		
+  pinMode(LED_BUILTIN, OUTPUT); // for visual debugging
+}
+
+void loop() {
+
+  // do your stuff...
+
+}
+
+	</code>
 </p>
 
 <br/>
@@ -38,5 +57,8 @@ NeXusWiFiSelector works on the following microcontrollers/boards:
 
 <br/>
 <br/>
+<p align="center">
+	NeXusWiFiSelector is evulation of <a href="https://randomnerdtutorials.com/esp32-wi-fi-manager-asyncwebserver/">a Wi-Fi Manager (AsyncWebServer library)</a>
+</p>
 "# NeXus-WiFI-Selector" 
 # NeXus-WiFI-Selector
