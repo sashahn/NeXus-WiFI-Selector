@@ -118,7 +118,7 @@ bool NexusWiFiSelector::initWiFi() {
   }
 
   WiFi.mode(WIFI_STA);
-  WiFi.setTxPower(WIFI_POWER_7dBm);
+  //WiFi.setTxPower(WIFI_POWER_7dBm); 
 
   localIP.fromString(ip.c_str());
   localGateway.fromString(gateway.c_str());
@@ -227,7 +227,7 @@ void NexusWiFiSelector::setupAPServer() {
   Serial.println("Setting AP (Access Point)");
   // NULL sets an open Access Point
   WiFi.softAP("NeXus-WiFi", NULL);
-  WiFi.setTxPower(WIFI_POWER_7dBm);
+  //WiFi.setTxPower(WIFI_POWER_7dBm); // For signal strenght tests. NeXus Hera has amazing results at minimal tx power
 
   IPAddress IP = WiFi.softAPIP();
   Serial.print("AP IP address: ");
