@@ -9,6 +9,8 @@
 <img src="/docs/IMG_3.jpeg" width="100">
 &nbsp;
 <img src="/docs/IMG_4.jpeg" width="100">
+&nbsp;
+<img src="/docs/IMG_5.jpeg" width="100">
 </p>
 <br/>
 
