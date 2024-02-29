@@ -16,8 +16,8 @@
 <br/>
 
 <p>USAGE:</br>	
-<code>
- 
+
+```
 	STEP 1:
 	1.1 Open file: ESP_SPIFFS_FILE-UPLOADER-HELPER.ino.
 	1.2 Edit HTML templates |indexHTML |landing |scan | wifimanager | style | to acommodate your needs 
@@ -25,9 +25,9 @@
 	STEP 2:
 	2.1 From example menu open: NeXusWiFiSelector.ino.
 	Happy coding
-</code> 
-<code> 
+```
 
+``` C++
 	#include <NexusWiFiSelector.h>  // Add lib
 			
 	NexusWiFiSelector neXus;	// Create Object
@@ -45,7 +45,7 @@
 			
 	} 	
 	
-</code>
+```
 </p>
 
 <br/>
