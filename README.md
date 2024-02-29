@@ -2,13 +2,13 @@
 
 <br/>
 <p align="center">
-<p ><img src="/docs/IMG_1.jpeg" width="100"></p>
+<img src="/docs/IMG_1.jpeg" width="100">
 &nbsp;
-<p ><img src="/docs/IMG_2.jpeg" width="100"></p>
+<img src="/docs/IMG_2.jpeg" width="100">
 &nbsp;
-<p><img src="/docs/IMG_3.jpeg" width="100"></p>
+<img src="/docs/IMG_3.jpeg" width="100">
 &nbsp;
-<p><img src="/docs/IMG_4.jpeg" width="100"></p>
+<img src="/docs/IMG_4.jpeg" width="100">
 </p>
 <br/>
 
